@@ -34,7 +34,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     GLFWwindow* window;
-    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", nullptr, nullptr);
+    window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Black Hole", nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window." << std::endl;
         glfwTerminate();

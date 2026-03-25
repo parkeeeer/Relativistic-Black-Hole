@@ -6,7 +6,7 @@
 // ============================================================
 //  Kerr Black Hole Raytracer -- Kerr-Schild Cartesian Coordinates
 //
-//  No coordinate singularity at the poles.
+//  Originally tried BL coordinated but could not get them to work due to singularities
 //
 //  The Kerr-Schild form of the metric is:
 //    g = eta + f * l (x) l
@@ -15,7 +15,7 @@
 //  f is a scalar function, and l is a null 1-form.
 //
 //  Everything is in Cartesian coords (t, x, y, z) with y as the
-//  polar/spin axis. No sin(theta) anywhere, no pole problems.
+//  polar axis.
 //
 //  We integrate the second-order geodesic equation:
 //    d^2 x^i / dlambda^2 = acceleration from curved spacetime
@@ -60,7 +60,7 @@ float kerr_r(vec3 p) {
     float w2 = dot(p, p) - a2;
     float z2 = p.y * p.y;          // y is the spin/polar axis
     float r2 = 0.5 * (w2 + sqrt(max(w2 * w2 + 4.0 * a2 * z2, 0.0)));
-    return sqrt(max(r2, 1e-10));
+    return sqrt(max(r2, 1e-10));  //shouldnt be zero
 }
 
 
