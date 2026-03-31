@@ -6,9 +6,9 @@
 // ============================================================
 //  Kerr Black Hole Raytracer -- Kerr-Schild Cartesian Coordinates
 //
-//  Originally tried BL coordinated but could not get them to work due to singularities
+//  Originally tried BL coordinates but could not get them to look good due to singularities
 //
-//  The Kerr-Schild form of the metric is:
+//  The Kerr-Schild form is
 //    g = eta + f * l (x) l
 //
 //  where eta is the flat Minkowski metric diag(-1,1,1,1),
@@ -44,7 +44,7 @@ const float ESCAPE_R2 = 150.0 * 150.0;  // squared escape radius
 const float PI        = 3.14159265359;
 
 
-// ============================================================
+
 // Compute the Boyer-Lindquist radius r from Cartesian position.
 //
 // In Kerr-Schild coords, r is defined implicitly by:
@@ -54,7 +54,6 @@ const float PI        = 3.14159265359;
 // Solving this quadratic in r^2:
 //   r^2 = 0.5 * (w2 + sqrt(w2^2 + 4*a^2*z_pole^2))
 //   where w2 = x^2+y^2+z^2 - a^2
-// ============================================================
 float kerr_r(vec3 p) {
     float a2 = a * a;
     float w2 = dot(p, p) - a2;
@@ -64,7 +63,7 @@ float kerr_r(vec3 p) {
 }
 
 
-// ============================================================
+
 // Compute the geodesic acceleration (spatial part only).
 //
 // Given position p = (x, y, z) and 4-velocity v4 = (vt, vx, vy, vz),
@@ -92,7 +91,7 @@ float kerr_r(vec3 p) {
 //   dr/dx_i = (x_i * r^2 + a^2 * z_pole * delta_{y,i}) / (r * D)
 //   where D = sqrt((rho^2 - a^2)^2 + 4*a^2*z_pole^2)
 //
-// We then assemble two contracted quantities:
+// then assemble two contracted quantities:
 //   Q_beta = (v^u * d_u h_{beta,v}) * v^v
 //   S_beta = 0.5 * (d_beta h_{u,v}) * v^u * v^v
 //
@@ -100,7 +99,7 @@ float kerr_r(vec3 p) {
 //   a^i = -(Q_i - S_i) + f * l^i * (l^beta * (Q_beta - S_beta))
 //
 // where l^beta = (-1, lx, ly, lz) with the time index flipped.
-// ============================================================
+
 vec3 geodesic_accel(vec3 p, vec4 v4) {
     float a2 = a * a;
 
@@ -297,7 +296,7 @@ vec3 geodesic_accel(vec3 p, vec4 v4) {
 }
 
 
-// ============================================================
+
 // Helper: solve for vt from the null condition.
 //
 // The null condition g_{uv} v^u v^v = 0 expands to:
@@ -308,7 +307,7 @@ vec3 geodesic_accel(vec3 p, vec4 v4) {
 //
 // We pick the root with vt > 0 (future-directed photon).
 // For f -> 0 (flat space far from BH), vt -> 1 as expected.
-// ============================================================
+
 float solve_vt(vec3 p, vec3 vs) {
     float a2 = a * a;
     float rho2 = dot(p, p);
